@@ -6,11 +6,13 @@ parser = argparse.ArgumentParser(description="Applies a K-Means filter to an ima
 
 parser.add_argument("-i",
                     "--imageDir", 
-                    help="Path to the image which the filter will be applied to")
+                    help="Path to the image which the filter will be applied to",
+                    required=True)
 
 parser.add_argument("-n",
                     "--numCentres", 
-                    help="The number of centres for K-Means")
+                    help="The number of centres for K-Means",
+                    required=True)
 
 # Applies K-Means segmentation to image and displays it 
 def filter(imageDir, numCentres):
@@ -53,7 +55,7 @@ def maximisation(centrePoints, centres):
         if (len(centrePoints[i]) > 0):
             newCentre = averagePoints(centrePoints[i])
         else: 
-            newcentre = oldCentre
+            newCentre = oldCentre
 
         if (newCentre != oldCentre):
             centresChanged = True 
@@ -90,4 +92,4 @@ def genRandomCentres(n):
     
 args = parser.parse_args()
 
-filter("test2.jpeg", 2)
+filter(args.imageDir, int(args.numCentres))
